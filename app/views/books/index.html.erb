@@ -1,6 +1,12 @@
 <h1>All Books</h1>
 
     <% @books.each do |book| %>
-        <h1><%= book.name %></h1>
-        </div>
+        <h2><%= link_to book.name, book %></h2>
+        <p><%= book.content %></p>
+        <p>
+        <%= link_to "Edit", edit_book_path(book) %> |
+        <%= link_to "Delete", book, :method => :delete %>
+        
+        </p> 
+        <hr />
     <% end %>

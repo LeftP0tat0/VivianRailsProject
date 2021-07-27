@@ -1,0 +1,11 @@
+<h1>All notes</h1>
+
+    <% @notes.each do |note| %>
+        <h2><%= link_to note.name, note %></h2>
+        <p>
+        <%= link_to "Edit", edit_note_path(note) %> |
+        <%= link_to "Delete", note, :method => :delete %>
+        
+        </p> 
+        <hr />
+    <% end %>
