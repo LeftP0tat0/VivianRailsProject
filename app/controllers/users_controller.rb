@@ -5,7 +5,7 @@ def new
 end
 
 def create 
-    @user = User.new(user_prams)
+    @user = User.new(user_params)
     if @user.save
         session[:user_id] = @user.id
         redirect_to @user
@@ -15,6 +15,9 @@ def create
 end 
 
 def show 
+    redirect_if_not_logged_in
+    @user = User.find_by_id(params[:id])
+    redirect_to '/' if !@user
 end
 
 private
