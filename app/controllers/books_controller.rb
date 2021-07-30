@@ -1,5 +1,6 @@
 class BooksController < ApplicationController
     before_action :redirect_if_not_logged_in
+    
 
     def new
         @book = Book.new
@@ -28,7 +29,7 @@ class BooksController < ApplicationController
 
     def update
         @book = Book.find(params[:id])
-        if @book.update_attribute("name",params["book"]["name"])
+        if @book.update("name" => params["book"]["name"], "content" => params["book"]["content"])
             redirect_to books_path
         else 
             render "edit"
