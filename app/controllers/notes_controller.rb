@@ -4,16 +4,12 @@ class NotesController < ApplicationController
     end
 
     def create
-        @note = current_user.notes.build(note_params)
-        if @note.save
-            redirect_to notes_path
-        else
-            render :new
-        end
+        @note = current_user.notes.create(params.require(:note).permit(:title))
+        redirect_to books_path
     end
 
     def index
-        @notes = current_user.notes.all
+        @note = current_user.notes.all
     end
 
     def show
@@ -43,7 +39,7 @@ class NotesController < ApplicationController
     private
 
     def note_params
-        params.require(:note).permit(:name)
+        params.require(:note).permit(:name, :title)
     end
 
 end

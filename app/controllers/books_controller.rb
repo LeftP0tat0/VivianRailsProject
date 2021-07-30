@@ -21,6 +21,7 @@ class BooksController < ApplicationController
 
     def show
         @book = Book.find(params[:id])
+        @note = current_user.notes.all
     end
 
     def edit
@@ -29,6 +30,7 @@ class BooksController < ApplicationController
 
     def update
         @book = Book.find(params[:id])
+        @note = current_user.notes.all
         if @book.update("name" => params["book"]["name"], "content" => params["book"]["content"])
             redirect_to books_path
         else 

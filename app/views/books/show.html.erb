@@ -1,3 +1,15 @@
 <h1><%=@book.name %></h1>
 
 <p><%= @book.content %></p>
+
+<% @note.each do |note| %>
+    <h2><%= link_to note.name, note %></h2>
+    <p>
+    <%= link_to "Edit", edit_note_path(note) %> |
+    <%= link_to "Delete", note, :method => :delete %>
+    
+    </p> 
+    <hr />
+<% end %>
+
+<%= link_to "Add Notes", "/notes/new" %>
