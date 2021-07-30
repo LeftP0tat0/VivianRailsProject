@@ -4,8 +4,12 @@ class NotesController < ApplicationController
     end
 
     def create
-        @note = current_user.notes.create(params.require(:note).permit(:title))
-        redirect_to books_path
+        @note = current_user.notes.build(note_params)
+        if @note.save
+            redirect_to books_path
+        else
+            render :new
+        end
     end
 
     def index
