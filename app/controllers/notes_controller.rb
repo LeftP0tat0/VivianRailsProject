@@ -6,7 +6,7 @@ class NotesController < ApplicationController
     def create
         @note = current_user.notes.build(note_params)
         if @note.save
-            redirect_to books_path
+            redirect_to "/books/#{@note.book_id}" 
         else
             render :new
         end
@@ -26,8 +26,8 @@ class NotesController < ApplicationController
 
     def update
         @note = Note.find(params[:id])
-        if @note.update_attribute("title",params["note"]["title"])
-            redirect_to notes_path
+        if @note.update("title" => params["note"]["title"])
+            redirect_to "/books/#{@note.book_id}" 
         else 
             render "edit"
         end
@@ -37,13 +37,13 @@ class NotesController < ApplicationController
         @note = Note.find(params[:id])
 
         @note.destroy
-        redirect_to notes_path
+        redirect_to "/books/#{@note.book_id}" 
     end
 
     private
 
     def note_params
-        params.require(:note).permit(:name, :title)
+        params.require(:note).permit(:name, :title, :book_id, :user_id)
     end
 
 end

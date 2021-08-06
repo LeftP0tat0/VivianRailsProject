@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   root "sessions#home"
 
+#  devise_for :users, controllers: {omniauth_callbacks: 'omniauth'}
+
+
+  post '/name_order' => 'books#name_order'
+
   #signup
   get '/signup' => 'users#new'
   post '/signup' => 'users#create'

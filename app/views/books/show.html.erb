@@ -2,14 +2,29 @@
 
 <p><%= @book.content %></p>
 
-<% @note.each do |note| %>
-    <h2><%= link_to note.name, note %></h2>
-    <p>
-    <%= link_to "Edit", edit_note_path(note) %> |
-    <%= link_to "Delete", note, :method => :delete %>
-    
-    </p> 
-    <hr />
+<%= form_for(@note) do |f|%>
+
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+    <%= f.hidden_field :user_id, value: @user.id  %>
+    <%= f.hidden_field :book_id, value: @book.id %>
+
+    <%= f.submit "Create new note" %>
+
 <% end %>
 
-<%= link_to "Add Notes", "/notes/new" %>
+<br>
+
+<% @notes.each do |note| %>
+    <% if note.book_id == @book.id %>
+        <li><%= note.title %></li>
+        <p>
+        <%= link_to "Edit", edit_note_path(note) %> |
+        <%= link_to "Delete", note, :method => :delete %>
+        </p> 
+        <hr />
+    <% end %>
+    
+<% end %>
+
+
