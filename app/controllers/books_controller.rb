@@ -16,18 +16,11 @@ class BooksController < ApplicationController
     end
 
     def index
+
         @books = current_user.books.all
-    end
 
-    def name_order
-        @scope = params["scope"]["desired_attribute"]
-
-        if @scope == "Long Names"
-            @books = current_user.books.with_long_name
-        elsif @scope == "Short Names"
-            @books = current_user.books.with_short_name
-        else
-            @books = current_user.books.all
+        if params["book"]
+            @params = params["book"]["desired_attribute"]
         end
 
     end
@@ -59,8 +52,8 @@ class BooksController < ApplicationController
         @note.each do |note|
             if note.book_id == @book.id
                 note.destroy
-            end  
-        end  
+            end
+        end
         @book.destroy
         redirect_to books_path
     end
@@ -69,7 +62,7 @@ class BooksController < ApplicationController
     private
 
     def book_params
-        params.require(:book).permit(:name)
+        params.require(:book).permit(:name, :name_order, :scope_option)
     end
 
 end

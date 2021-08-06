@@ -1,19 +1,42 @@
 <h1>All Books</h1>
 
-    <%= form_for :scope, url: "/name_order", method: "post" do |f|%>
+    <%= form_for :book, url: "/index", method: "post"  do |f|%>
 
-        <%= f.select :desired_attribute, ['Short Names', 'Long Names']%>
+        <%= f.select :desired_attribute, ['all', 'Short Names', 'Long Names']%>
 
         <%= f.submit "Select" %>
 
     <% end %>    
-
-    <% @books.each do |book| %>
-        <h2><%= link_to book.name, book %></h2>
-        <p>
-        <%= link_to "Edit", edit_book_path(book) %> |
-        <%= link_to "Delete", book, :method => :delete %>
+    
+        <% if @params == 'Short Names' %>
+            <% @books.with_short_name.each do |book| %>
+                <h2><%= link_to book.name, book %></h2>
+                <p>
+                <%= link_to "Edit", edit_book_path(book) %> |
+                <%= link_to "Delete", book, :method => :delete %>
         
-        </p> 
-        <hr />
-    <% end %>
+                </p> 
+                <hr />
+            <% end %>
+        <% elsif @params == 'Long Names' %> 
+            <% @books.with_long_name.each do |book| %>
+                <h2><%= link_to book.name, book %></h2>
+                <p>
+                <%= link_to "Edit", edit_book_path(book) %> |
+                <%= link_to "Delete", book, :method => :delete %>
+        
+                </p> 
+                <hr />
+                <% end %>
+        <% else %>
+            <% @books.each do |book| %>
+                <h2><%= link_to book.name, book %></h2>
+                <p>
+                <%= link_to "Edit", edit_book_path(book) %> |
+                <%= link_to "Delete", book, :method => :delete %>
+        
+                </p> 
+                <hr />
+            <% end %>
+        <% end %>
+        

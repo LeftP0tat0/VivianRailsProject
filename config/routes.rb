@@ -3,8 +3,7 @@ Rails.application.routes.draw do
 
 #  devise_for :users, controllers: {omniauth_callbacks: 'omniauth'}
 
-
-  post '/name_order' => 'books#name_order'
+  post '/index' => 'books#index'
 
   #signup
   get '/signup' => 'users#new'
