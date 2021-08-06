@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   post '/index' => 'books#index'
 
+  get '/auth/github/callback' => 'sessions#create' 
+
   #signup
   get '/signup' => 'users#new'
   post '/signup' => 'users#create'
