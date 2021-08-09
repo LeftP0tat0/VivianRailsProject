@@ -3,13 +3,13 @@ class BooksController < ApplicationController
     
 
     def new
-        @book = Book.new
+        @book = Book.new(user_id: params[:user_id])
     end
 
     def create
         @book = current_user.books.build(book_params)
         if @book.save
-            redirect_to books_path
+            redirect_to user_books_path(current_user.id)
         else
             render :new
         end
@@ -29,7 +29,6 @@ class BooksController < ApplicationController
         @book = Book.find(params[:id])
         @notes = current_user.notes.all
         @note = Note.new
-        @user = current_user
     end
 
     def edit
@@ -40,26 +39,21 @@ class BooksController < ApplicationController
         @book = Book.find(params[:id])
         @note = current_user.notes.all
         if @book.update("name" => params["book"]["name"], "content" => params["book"]["content"])
-            redirect_to books_path
+            redirect_to user_books_path(current_user.id)
         else 
             render "edit"
         end
     end
 
+
     def destroy
         @book = Book.find(params[:id])
-        @note = current_user.notes.all
-        @note.each do |note|
-            if note.book_id == @book.id
-                note.destroy
-            end
-        end
+        @book.notes.destroy_all
         @book.destroy
-        redirect_to books_path
+        redirect_to user_books_path(current_user.id)
     end
 
-
-    private
+    
 
     def book_params
         params.require(:book).permit(:name, :name_order, :scope_option)

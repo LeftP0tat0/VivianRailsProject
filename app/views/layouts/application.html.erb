@@ -15,8 +15,8 @@
     <div>
       <br>
       <% if logged_in?%>
-      <%= link_to "Add Book", new_book_path %> |
-      <%= link_to "All Books", books_path %> |
+      <%= link_to "Add Book", new_user_book_path(current_user.id) %> |
+      <%= link_to "All Books", user_books_path(current_user.id) %> |
       <%=link_to "Logout", logout_path, method:"delete" %>
 
       <% else %>

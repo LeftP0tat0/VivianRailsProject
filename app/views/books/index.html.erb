@@ -10,7 +10,7 @@
     
         <% if @params == 'Short Names' %>
             <% @books.with_short_name.each do |book| %>
-                <h2><%= link_to book.name, book %></h2>
+                <h2><%= link_to book.name, user_book_path(current_user.id, book.id) %></h2>
                 <p>
                 <%= link_to "Edit", edit_book_path(book) %> |
                 <%= link_to "Delete", book, :method => :delete %>
@@ -20,8 +20,7 @@
             <% end %>
         <% elsif @params == 'Long Names' %> 
             <% @books.with_long_name.each do |book| %>
-                <h2><%= link_to book.name, book %></h2>
-                <p>
+                <h2><%= link_to book.name, user_book_path(current_user.id, book.id) %></h2>                <p>
                 <%= link_to "Edit", edit_book_path(book) %> |
                 <%= link_to "Delete", book, :method => :delete %>
         
@@ -30,7 +29,7 @@
                 <% end %>
         <% else %>
             <% @books.each do |book| %>
-                <h2><%= link_to book.name, book %></h2>
+                <h2><%= link_to book.name, user_book_path(current_user.id, book.id) %></h2>
                 <p>
                 <%= link_to "Edit", edit_book_path(book) %> |
                 <%= link_to "Delete", book, :method => :delete %>

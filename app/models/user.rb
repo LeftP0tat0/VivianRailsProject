@@ -1,5 +1,7 @@
 class User < ApplicationRecord
-    has_many :tags, through: :notes
+    require 'securerandom'
+    
+    has_many :books, through: :notes
     has_many :books
     has_many :notes, through: :books
     has_secure_password
@@ -9,8 +11,7 @@ class User < ApplicationRecord
     
         @user.username = auth['info']['nickname']
         @user.email = auth['info']['email']
-        @user.id = auth['uid']
-        @user.password = '9'
+        @user.password = SecureRandom.hex(10)
 
         @user.save
         @user
